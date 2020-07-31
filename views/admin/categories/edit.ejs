@@ -9,7 +9,8 @@
                 <h2>Editar Categoria</h2>
             </div>
             <div class="card-body">
-                <form action="/admin/categories/edit" method="POST">
+                <form action="/admin/categories/update" method="POST">
+                    <input type="hidden" name="id" value="<%- category.id %>">
                     <input type="text" name="title" value="<%- category.title %>" class="form-control">
                     <button class="btn btn-success mt-4">Editar</button>
                 </form>
