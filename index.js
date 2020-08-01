@@ -3,10 +3,12 @@ const app = express();
 const PORT = process.env.PORT || 3001
 const categories = require('./categories/categoriescontroler')
 const articles = require('./articles/articlescontroler')
+const home = require("./home/home")
 const db = require('./models')
 const flash = require('connect-flash')
 const session = require('express-session')
 
+//Session e Midlewars
 app.use(session({
     secret: 'guiapress',
     resave: true,
@@ -22,15 +24,20 @@ app.use((req, res, next)=>{
     next();
 })
 
+//Bodu-parser
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
+//View
 app.set('view engine', 'ejs')
 
+//Static File
 app.use(express.static('public'))
 
+//Router
 app.use('/', categories)
-app.use('/articles', articles)
+app.use('/', articles)
+app.use('/', home)
 
 
 db.sequelize.sync().then(()=>{

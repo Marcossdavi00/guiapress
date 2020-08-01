@@ -13,7 +13,7 @@ module.exports = (sequelize, DataType)=>{
             allowNull: false
         },
         body:{
-            type: DataType.STRING,
+            type: DataType.TEXT,
             allowNull: false
         }
     })
