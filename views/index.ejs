@@ -12,15 +12,15 @@
             <a class="btn btn-primary btn-lg" href="#" role="button">Leia mais</a>
           </div>
           <hr>
-        <% article.forEach(article=>{ %>
+            <% article.forEach(article=>{ %>
             <div class="card mt-2">
                 <div class="card-header">
                     <h4><%- article.title %></h4>
                 </div>
                 <div class="card-body">
-                    <a href="" class="btn btn-success">Ler Artigo</a>
+                    <a href="/<%- article.slug %>" class="btn btn-success">Ler Artigo</a>
                 </div>
             </div>
-        <% }) %>
+            <% }) %>
     </div>
 <%- include ('partials/footer.ejs'); %>

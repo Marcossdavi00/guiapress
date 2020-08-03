@@ -92,7 +92,7 @@ router.get('/admin/categories/edit/:id', (req, res)=>{
 router.post('/admin/categories/update', async(req, res)=>{
 
     let { id, title } = req.body
-    console.log(id, title);
+    
     if(!title || title === undefined){
         req.flash("error_msg", "Titulo inválido")
         res.redirect('/admin/categories/edit/:id')

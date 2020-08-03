@@ -27,7 +27,7 @@
                         <td><%- article.slug %></td>
                         <td><%- article.Category.title %></td>
                         <td>
-                            <a class="btn btn-warning" href="/admin/categories/edit/">Editar</a>
+                            <a class="btn btn-warning" href="/admin/articles/edit/<%- article.id %>">Editar</a>
                             <form action="/admin/articles/delete" method="POST" style="display:inline" onsubmit="confirmarDelecao(event, this)">
                                 <input type="hidden" name="id" value="<%- article.id %>">
                                 <button class="btn btn-danger">Deletar</button>

@@ -31,7 +31,6 @@ router.get('/admin/articles/new', (req,res)=>{
 router.post("/admin/articles/save", async(req, res)=>{
 
     let { title, body, categoryid} = req.body
-    console.log(categoryid);
 
     if (!title || title === undefined) {
         req.flash("error_msg", "Título invalido")
@@ -69,6 +68,55 @@ router.post("/admin/articles/delete", (req, res)=>{
         })
     }
 
+})
+
+router.get("/admin/articles/edit/:id", (req, res)=>{
+    var id = req.params.id
+
+    if (isNaN(id)) {
+        req.flash("error_msg", "Artigo inválido")
+        res.redirect("/admin/articles")
+    }else{
+        Article.findByPk(id).then(article=>{
+            Category.findAll().then(category=>{
+                res.render("admin/articles/edit", {article, category})
+            }).catch(err=>{
+            req.flash("error_msg", "Houve um erro interno ao editar Categoria")
+            res.redirect("/admin/articles")
+            })
+        }).catch(err=>{
+            req.flash("error_msg", "Houve um erro interno ao editar Artigo")
+            res.redirect("/admin/articles")
+        })
+    }
+
+    
+})
+
+router.post("/admin/articles/edit/save", async(req, res)=>{
+
+    let { id, title, body, categoryid} = req.body
+
+    if (!title || title === undefined) {
+        req.flash("error_msg", "Título invalido")
+        res.redirect("/admin/articles/new")
+    } else{
+
+        let newArticle = await Article.update({
+            title,
+            slug: slugify(title),
+            body,
+            CategoryId : categoryid
+        },{where: {id}}).then(()=>{
+            req.flash("success_msg", "Artigo editado com sucesso")
+            res.redirect("/admin/articles")
+        }).catch(err=>{
+            req.flash("error_msg", "Erro ao salvar categoria, tente novamente")
+            console.error(err);
+            res.redirect("/admin/articles")
+        })
+
+    }
 })
 
 module.exports = router
